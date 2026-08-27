@@ -26,19 +26,25 @@ Once connected, you can use your AI to work with **Bookkeeping & Invoicing**. In
 **Sales**
 
 * **Customers** – find, create and update customers; view customer groups
+* **Quotes** – create and search quotes, and convert a quote to an order or directly to an invoice
 * **Orders** – create, search and update orders, and convert an order to an invoice
 * **Customer invoices** – create, send and search invoices, register payments, send reminders, and void
+* **Invoice drafts** – draft an invoice for your review, search and update drafts, and convert an approved draft to a real invoice
 * **Articles** – create, search and update products and services, including their accounting rules; view article groups
 
 **Purchasing**
 
 * **Suppliers** – find, create and update
 * **Supplier invoices** – create and search
+* **Supplier invoice drafts** – draft a supplier invoice for your review, search and update drafts, and convert an approved draft to a real supplier invoice
 
 **Accounting**
 
 * **Vouchers** – create and search journal entries, including by fiscal year
+* **Voucher drafts** – draft a journal entry for your review, search and update drafts, and convert an approved draft to a booked voucher
 * **Accounts** – browse, create and update the chart of accounts and account types; check balances at a given date
+* **Financial reports** – balance sheet and income statement, with prior-year comparison
+* **Bank transactions** – view matched and unmatched bank transactions
 * **Company summary** – multi-year overview of the company's financial health
 
 **Other**
@@ -47,6 +53,8 @@ Once connected, you can use your AI to work with **Bookkeeping & Invoicing**. In
 * **Projects** – create, search and update
 * **Cost centers** – list cost centers
 * **Company settings** – view your company settings
+
+**A note on drafts:** creating an invoice or voucher directly posts it to your accounts immediately. The draft tools exist so the AI can prepare something for you to look at first – nothing is booked until you approve the conversion.
 
 We're continuously improving existing tools and adding new ones based on what users need.
 

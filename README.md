@@ -87,57 +87,74 @@ The general steps are the same regardless of which tool you use:
 
 1. Find the MCP or custom connector settings in your AI tool
 2. Add a new connector with the URL above
-3. Complete the OAuth login to authorise access to your Spiris account
+3. Complete the OAuth login to authorise access to your Spiris account, and choose the company you want to work in
 4. Activate the connector in your chat or workspace
 
 Below are specific instructions for the most common platforms. If your platform isn't listed, look for "MCP", "custom connectors" or "external tools" in its settings.
 
 ### Claude
 
-Remote MCP connectors are supported on Claude Free, Pro, Max, Team and Enterprise.
+Custom connectors are supported on Claude Free, Pro, Max, Team and Enterprise. On the Free plan you can add one custom connector.
 
-#### On Pro or Max
+#### On Free, Pro or Max
 
-1. Go to **Settings → Connectors**
-2. Click **+** and add name `Spiris` and URL `https://mcp.spiris.se/mcp`
-3. Click **Add** and complete the Spiris login
-4. Activate Spiris in a conversation via the **+** menu in the chat
+1. Go to **Customize → Connectors**, click **+ Add** and choose **Add custom connector**
+2. Enter name `Spiris` and URL `https://mcp.spiris.se/mcp`, then click **Add**
+3. Complete the Spiris login
+4. In a conversation, click **+** at the bottom left, choose **Connectors** and switch on Spiris
 
 #### On Team or Enterprise
 
-An Owner must first add the connector under **Organization settings → Connectors → Add**. Users can then activate it for themselves.
+1. An Owner adds the connector under **Organization settings → Connectors → Add → Custom → Web**, with name `Spiris` and URL `https://mcp.spiris.se/mcp`
+2. Each member then goes to **Customize → Connectors**, finds Spiris and clicks **Connect**
 
 #### Claude Code
 
 ```bash
-claude mcp add --transport http spiris https://mcp.spiris.se/mcp
+claude mcp add --transport http --scope user spiris https://mcp.spiris.se/mcp
 ```
 
-Then run `/mcp` inside Claude Code to complete the OAuth login in the browser.
+`--scope user` makes Spiris available in all your projects. Leave it out to add Spiris to the current project only. Then run `/mcp` inside Claude Code to complete the OAuth login in the browser.
 
 ### ChatGPT
 
-Requires Developer Mode, available on Plus, Pro, Business and Enterprise.
+Full MCP support, including actions that create or change data, is available on ChatGPT Business, Enterprise and Edu. On Plus and Pro, custom MCP connectors may be limited to read-only use – check what your plan supports.
 
-1. Enable Developer Mode: **Workspace Settings → Permissions & Roles → Connected Data → Developer mode**
-2. Go to **Settings → Apps & Connectors → Add new connector**
-3. Name: `Spiris` · URL: `https://mcp.spiris.se/mcp` · Authentication: `OAuth`
-4. Check _"I trust this application"_ and click **Create**
-5. Complete OAuth login, then activate Spiris via the tools menu in the chat
+1. **Business, Enterprise or Edu:** a workspace admin must first allow custom MCP connectors (developer mode) under **Workspace Settings → Permissions & Roles → Connected Data**
+2. Go to **[chatgpt.com/plugins](https://chatgpt.com/plugins)**, click **+** and choose **Add custom MCP server**
+3. Name: `Spiris` · Server URL: `https://mcp.spiris.se/mcp` · Authentication: `OAuth`
+4. ChatGPT warns that the server hasn't been reviewed by OpenAI. Select **I understand and want to continue**, then **Create as a plugin**
+5. Complete the Spiris login. In a conversation, type `@` in the prompt box and choose Spiris
+
+ChatGPT asks you to confirm before it runs tools that create or change data.
 
 ### VS Code
 
-MCP support in VS Code is available through extensions such as GitHub Copilot and Continue. The general steps are:
+MCP servers are supported in VS Code with GitHub Copilot.
 
-1. Open your MCP configuration file (typically `.vscode/mcp.json` or your extension's settings)
-2. Add a new server entry with URL `https://mcp.spiris.se/mcp` and type `http`
-3. Save and reload. Complete the OAuth login when prompted
+1. Create or open `.vscode/mcp.json` in your workspace
+2. Add Spiris as an HTTP server:
+
+   ```json
+   {
+     "servers": {
+       "spiris": {
+         "type": "http",
+         "url": "https://mcp.spiris.se/mcp"
+       }
+     }
+   }
+   ```
+
+3. Save the file and complete the Spiris login when VS Code asks you to
 
 ***
 
 ## Login and re-authentication
 
 When you connect, you log in with OAuth via Spiris. The AI never sees your password – it receives a time-limited access token tied to your user account. When it expires, you'll be prompted to log in again.
+
+Each connection works in one company – the one you choose when you log in. To work in another company, disconnect Spiris in your AI tool, connect again and choose the other company.
 
 ***
 
@@ -152,7 +169,7 @@ When you ask an AI to look something up or take an action in Spiris, that data t
 
 **Our recommendation:** If you're handling financial data on behalf of clients – for example as an accountant – or if your company policy requires data to stay within defined boundaries, use a business plan with your AI provider. Always verify the current terms directly with your AI provider, as policies can change.
 
-On Spiris's side: we process data as we do with the rest of our product, in accordance with our privacy policy. We do not store your AI conversations – we see API calls the same way we see all other API calls to our platform.
+On Spiris's side: Spiris MCP runs within the EU, and we process data as we do with the rest of our product, in accordance with our privacy policy. We do not store your AI conversations – we see API calls the same way we see all other API calls to our platform. Once data is part of a conversation, your AI provider's terms apply, including where they store it.
 
 ***
 
@@ -168,7 +185,7 @@ Responsibility for the accuracy of your accounts lies with you, as it always has
 
 **Price per month: Free** _(beta)_
 
-Spiris MCP is free to use while we're in beta. We will introduce a monthly fee before the general release – we'll communicate this clearly and in advance, so you won't be surprised.
+Spiris MCP is free to use while we're in beta.
 
 ***
 
